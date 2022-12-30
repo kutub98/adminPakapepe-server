@@ -32,9 +32,9 @@ async function run() {
 const logoImgCollect = client.db("AdminPkPPDboard").collection("logoImg");
 
 
-app.post("/logoImg", async (req, res) => {
-    const logoImg = req.body;
-    const addLogoImage = await logoImgCollect.insertOne(logoImg);
+app.post("/logoImg", (req, res) => {
+    const logoImg = "logo image";
+    const addLogoImage =  logoImgCollect.insertOne(logoImg);
     console.log(addLogoImage);
     res.send(addLogoImage);
   });
@@ -52,7 +52,7 @@ app.post("/logoImg", async (req, res) => {
 // get welcome pakapep server by default
 app.get("/", (req, res) => {
     res.send("Welcome to Paka Pepe");
-  });
+});
 
 app.listen(port, () => {
   console.log(`Paka Pepe server is running ${port}`);
