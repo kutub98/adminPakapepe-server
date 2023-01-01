@@ -30,22 +30,38 @@ async function run() {
 
 // All collection 
 const logoImgCollect = client.db("AdminPkPPDboard").collection("logoImg");
+const bannerImgCollect = client.db("AdminPkPPDboard").collection("bannerImg");
 
 
-app.post("/logoImg", (req, res) => {
-    const logoImg = "logo image";
-    const addLogoImage =  logoImgCollect.insertOne(logoImg);
+//Post LogoImage
+app.post("/logoImg", async (req, res) => {
+    const logoImg = req.body;
+    const addLogoImage = await logoImgCollect.insertOne(logoImg);
     console.log(addLogoImage);
-    res.send(addLogoImage);
-  });
-
+    res.send(addLogoImage); 
+});
+//get LogoImage
   app.get("/logoImg", async (req, res) => {
     const logoImg = {};
-    const saveUser = await logoImgCollect.find(logoImg).toArray();
-    console.log(saveUser);
-    res.send(saveUser);
+    const getLogoImg = await logoImgCollect.find(logoImg).toArray();
+    console.log(getLogoImg);
+    res.send(getLogoImg);
   });
 
+  //Post banner Image
+app.post("/bannerImg", async (req, res) => {
+  const bannerImg = req.body;
+  const addLogoImage = await bannerImgCollect.insertOne(bannerImg);
+  console.log(addLogoImage);
+  res.send(addLogoImage); 
+});
+//get banner Image
+app.get("/bannerImg", async (req, res) => {
+  const bannerImg = {};
+  const getBannerImg = await bannerImgCollect.find(bannerImg).toArray();
+  console.log(getBannerImg);
+  res.send(getBannerImg);
+});
 
 
 
@@ -57,7 +73,6 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Paka Pepe server is running ${port}`);
 });
-
 
 
 run().catch((error) => console.error(error));
