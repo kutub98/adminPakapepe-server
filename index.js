@@ -32,6 +32,7 @@ async function run() {
 const logoImgCollect = client.db("AdminPkPPDboard").collection("logoImg");
 const bannerImgCollect = client.db("AdminPkPPDboard").collection("bannerImg");
 const collectColorCode = client.db('AdminPkPPDboard').collection("colorCode")
+const todoItemsCollect = client.db('AdminPkPPDboard').collection("todoItems")
 
 //Post LogoImage
 app.post("/logoImg", async (req, res) => {
@@ -65,14 +66,14 @@ app.get("/bannerImg", async (req, res) => {
 //Post color code
 app.post("/colorCode", async (req, res) => {
   const colorCode = req.body;
-  const addColorCode = await colorCodeCollect.insertOne(colorCode);
+  const addColorCode = await collectColorCode.insertOne(colorCode);
   console.log(addColorCode);
   res.send(addColorCode); 
 });
 //get color code
 app.get("/colorCode", async (req, res) => {
   const colorCode = {};
-  const getColorCode = await colorCodeCollect.find(colorCode).toArray();
+  const getColorCode = await collectColorCode.find(colorCode).toArray();
   console.log(getColorCode);
   res.send(getColorCode);
 });
