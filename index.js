@@ -31,7 +31,7 @@ async function run() {
 // All collection 
 const logoImgCollect = client.db("AdminPkPPDboard").collection("logoImg");
 const bannerImgCollect = client.db("AdminPkPPDboard").collection("bannerImg");
-
+const collectColorCode = client.db('AdminPkPPDboard').collection("colorCode")
 
 //Post LogoImage
 app.post("/logoImg", async (req, res) => {
@@ -62,6 +62,36 @@ app.get("/bannerImg", async (req, res) => {
   console.log(getBannerImg);
   res.send(getBannerImg);
 });
+//Post color code
+app.post("/colorCode", async (req, res) => {
+  const colorCode = req.body;
+  const addColorCode = await colorCodeCollect.insertOne(colorCode);
+  console.log(addColorCode);
+  res.send(addColorCode); 
+});
+//get color code
+app.get("/colorCode", async (req, res) => {
+  const colorCode = {};
+  const getColorCode = await colorCodeCollect.find(colorCode).toArray();
+  console.log(getColorCode);
+  res.send(getColorCode);
+});
+//Post todoItems data
+app.post("/todoItems", async (req, res) => {
+  const todoItems = req.body;
+  const saveTodoItems = await todoItemsCollect.insertOne(todoItems);
+  console.log(saveTodoItems);
+  res.send(saveTodoItems); 
+});
+//get todoItems data
+app.get("/todoItems", async (req, res) => {
+  const todoItems = {};
+  const getTodoItems = await todoItemsCollect.find(todoItems).toArray();
+  console.log(getTodoItems);
+  res.send(getTodoItems);
+});
+
+
 
 
 
