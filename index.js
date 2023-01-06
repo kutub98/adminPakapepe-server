@@ -10,7 +10,7 @@ app.use(express.json());
 
 
 // Pakapepe Admin Dashboard Database connect
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.SERVER_NAME}:${process.env.Pakapepe_Admin_Dashboard_Key}@cluster0.mlxcjcs.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -93,8 +93,17 @@ app.get("/todoItems", async (req, res) => {
 });
 
 
-app.delete("/todoItems/:id", async (req, res) => {
-  const id = req.params.id;
+app.get("/todoItems/:_id", async (req, res) => {
+  const id = req.params._id;
+  console.log(id)
+  const query ={_id: ObjectId(id)};
+  const result = await todoItemsCollect.findOne(query);
+  res.send(result);
+})
+
+
+app.delete("/todoItems/:_id", async (req, res) => {
+  const id = req.params._id;
   const query = { _id: ObjectId(id) };
   const result = await todoItemsCollect.deleteOne(query);
   console.log(result);
