@@ -80,7 +80,7 @@ app.get("/colorCode", async (req, res) => {
 //Post todoItems data
 app.post("/todoItems", async (req, res) => {
   const todoItems = req.body;
-  const saveTodoItems = await todoItemsCollect.insertOne(todoItems);
+  const saveTodoItems = await todoItemsCollect.insertOne({todoItems});
   console.log(saveTodoItems);
   res.send(saveTodoItems); 
 });
