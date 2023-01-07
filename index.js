@@ -80,7 +80,7 @@ app.get("/colorCode", async (req, res) => {
 //Post todoItems data
 app.post("/todoItems", async (req, res) => {
   const todoItems = req.body;
-  const saveTodoItems = await todoItemsCollect.insertOne({todoItems});
+  const saveTodoItems = await todoItemsCollect.insertOne(todoItems);
   console.log(saveTodoItems);
   res.send(saveTodoItems); 
 });
@@ -100,6 +100,25 @@ app.get("/todoItems/:_id", async (req, res) => {
   const result = await todoItemsCollect.findOne(query);
   res.send(result);
 })
+
+
+app.put("/todoItems/:id", async(req, res)=>{
+  const id = req.params.id;
+  console.log(id)
+  const query ={_id: ObjectId(id)};
+  const areaName = req.body.areaName;
+  const areaImg=  req.body.areaImg;
+  const result = await todoItemsCollect.updateOne(query, {
+    $set:{
+      areaName: areaName,
+      areaImg: areaImg,
+    }
+  });
+  res.send(result)
+})
+
+
+
 
 
 app.delete("/todoItems/:_id", async (req, res) => {
